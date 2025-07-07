@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const {initializeDatabase} = require("./db/db.connect");
 const Book = require("./models/book.models");
 const app = express();
@@ -180,6 +181,9 @@ app.post("/books/yearAndRating/:bookTitle", async (req, res) => {
 });
 
 async function deleteBookById(bookId){
+    if (!mongoose.Types.ObjectId.isValid(bookId)) {
+        return null;
+    }
     try{
         const book = await Book.findByIdAndDelete(bookId);
         return book;
