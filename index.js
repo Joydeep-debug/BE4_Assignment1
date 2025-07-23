@@ -1,17 +1,18 @@
+const mongoose = require("mongoose");
 const express = require("express");
+const app = express();
 const cors = require("cors");
 const corsOptions = {
   origin: "*",
   credentials: true,
   optionSuccessStatus: 200,
 };
-app.use(cors(corsOptions));
-const mongoose = require("mongoose");
+app.use(cors());
 const {initializeDatabase} = require("./db/db.connect");
 const Book = require("./models/book.models");
-const app = express();
-initializeDatabase();
 app.use(express.json());
+initializeDatabase();
+
 
 async function createBook(newBook){
     try{
